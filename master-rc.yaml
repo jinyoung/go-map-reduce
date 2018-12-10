@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: glow-master
+spec:
+  replicas: 1
+  selector:
+    glow-master: "true"
+  template:
+    metadata:
+      labels:
+        name: glow-master
+        glow-master: "true"
+        role: master
+    spec:
+      containers:
+        - name: glow-node
+          args: ["master"]
+          image: gcr.io/my-project-1531888882785/glow-node
+          ports:
+            - containerPort: 8930
+          resources:
+            limits:
+              cpu: "0.1"
